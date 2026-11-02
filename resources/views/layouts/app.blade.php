@@ -26,18 +26,34 @@
                     },
                     colors: {
                         bps: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            200: '#b9dffd',
-                            300: '#7cc4fb',
-                            400: '#36a5f7',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            800: '#1e3a8a',
-                            900: '#0f172a',
+                            50: '#f0f5fa',
+                            100: '#e1ecf6',
+                            200: '#c5dcee',
+                            300: '#9ac4e2',
+                            400: '#67a6d3',
+                            500: '#3f88c3',
+                            600: '#2b6ea9',
+                            700: '#0055a5',  // Official BPS Primary Blue
+                            800: '#003b73',  // Darker BPS Blue
+                            900: '#002855',  // Official BPS Primary Navy
+                            dark: '#001a38',
                             navy: '#002855',
-                            blue: '#0055A5',
+                            blue: '#0055a5',
+                            green: '#008850', // Official BPS Leaf Green
+                            orange: '#f58220', // Official BPS Data Orange
+                        },
+                        blue: {
+                            50: '#f0f5fa',
+                            100: '#e1ecf6',
+                            200: '#c5dcee',
+                            300: '#9ac4e2',
+                            400: '#67a6d3',
+                            500: '#3f88c3',
+                            600: '#2b6ea9',
+                            700: '#0055a5',  // Official BPS Primary Blue
+                            800: '#003b73',  // Darker BPS Blue
+                            900: '#002855',  // Official BPS Primary Navy
+                            950: '#001a38',
                         }
                     }
                 }
@@ -66,19 +82,19 @@
             display: none !important;
         }
 
-        /* SweetAlert2 Styling to Match Professional Government Theme */
+        /* SweetAlert2 Styling to Match Professional Government Theme (BPS Karanganyar) */
         .swal2-popup {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
-            border-radius: 1rem !important;
+            border-radius: 1.25rem !important;
             padding: 1.5rem !important;
             border: 1px solid #e2e8f0 !important;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 40, 85, 0.08), 0 8px 10px -6px rgba(0, 40, 85, 0.06) !important;
         }
 
         .swal2-title {
             font-size: 1.125rem !important;
             font-weight: 700 !important;
-            color: #0f172a !important;
+            color: #002855 !important;
         }
 
         .swal2-html-container {
@@ -87,17 +103,17 @@
         }
 
         .swal2-confirm {
-            border-radius: 0.5rem !important;
-            padding: 0.5rem 1.25rem !important;
-            font-weight: 600 !important;
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.35rem !important;
+            font-weight: 700 !important;
             font-size: 0.875rem !important;
-            background-color: #1e3a8a !important;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+            background-color: #002855 !important;
+            box-shadow: 0 2px 4px 0 rgba(0, 40, 85, 0.15) !important;
         }
 
         .swal2-cancel {
-            border-radius: 0.5rem !important;
-            padding: 0.5rem 1.25rem !important;
+            border-radius: 0.75rem !important;
+            padding: 0.6rem 1.35rem !important;
             font-weight: 600 !important;
             font-size: 0.875rem !important;
         }
@@ -156,6 +172,8 @@
         <aside
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
             class="fixed inset-y-0 left-0 z-50 w-64 xl:w-72 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out h-screen shrink-0">
+            <!-- Institutional Accent Strip (BPS Official Gradient: Navy -> Blue -> Green) -->
+            <div class="h-1 bg-gradient-to-r from-bps-900 via-bps-700 to-bps-green w-full shrink-0"></div>
             
             <!-- Brand & Logo Header -->
             <div class="h-16 px-4 sm:px-5 border-b border-slate-200 flex items-center justify-between shrink-0 bg-white">
@@ -166,7 +184,7 @@
                             <span class="text-xs sm:text-sm font-extrabold tracking-tight text-slate-900 truncate leading-tight">BPS KARANGANYAR</span>
                         </div>
                         <div class="flex items-center gap-1.5 mt-0.5">
-                            <span class="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full shrink-0 {{ auth()->user()->isAdmin() ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-blue-50 text-blue-800 border border-blue-200' }}">
+                            <span class="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded-full shrink-0 {{ auth()->user()->isAdmin() ? 'bg-amber-50 text-amber-900 border border-amber-200' : 'bg-bps-50 text-bps-900 border border-bps-200' }}">
                                 {{ auth()->user()->isAdmin() ? 'PEMBIMBING' : 'MAGANG' }}
                             </span>
                             <span class="text-[10px] text-slate-400 font-medium truncate">SIM-MAGANG</span>
@@ -191,15 +209,15 @@
                     </div>
                     <nav class="space-y-1">
                         <a href="{{ route('admin.dashboard') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="layout-dashboard" class="w-4 h-4 {{ request()->routeIs('admin.dashboard') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4 {{ request()->routeIs('admin.dashboard') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Dashboard</span>
                         </a>
 
                         <a href="{{ route('admin.verifikasi.index') }}"
-                           class="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.verifikasi.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                           class="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.verifikasi.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
                             <div class="flex items-center gap-3 min-w-0">
-                                <i data-lucide="check-check" class="w-4 h-4 {{ request()->routeIs('admin.verifikasi.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                                <i data-lucide="check-check" class="w-4 h-4 {{ request()->routeIs('admin.verifikasi.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                                 <span class="truncate">Verifikasi ACC</span>
                             </div>
                             @if($pendingTotal > 0)
@@ -210,20 +228,20 @@
                         </a>
 
                         <a href="{{ route('admin.rekap.index') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.rekap.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="file-spreadsheet" class="w-4 h-4 {{ request()->routeIs('admin.rekap.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.rekap.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="file-spreadsheet" class="w-4 h-4 {{ request()->routeIs('admin.rekap.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Rekapitulasi</span>
                         </a>
 
                         <a href="{{ route('admin.interns.index') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.interns.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="users" class="w-4 h-4 {{ request()->routeIs('admin.interns.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.interns.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="users" class="w-4 h-4 {{ request()->routeIs('admin.interns.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Peserta Magang</span>
                         </a>
 
                         <a href="{{ route('admin.evaluasi.index') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.evaluasi.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="award" class="w-4 h-4 {{ request()->routeIs('admin.evaluasi.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.evaluasi.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="award" class="w-4 h-4 {{ request()->routeIs('admin.evaluasi.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Penilaian Magang</span>
                         </a>
                     </nav>
@@ -236,14 +254,14 @@
                     </div>
                     <nav class="space-y-1">
                         <a href="{{ route('admin.holidays.index') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.holidays.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="calendar" class="w-4 h-4 {{ request()->routeIs('admin.holidays.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.holidays.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="calendar" class="w-4 h-4 {{ request()->routeIs('admin.holidays.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Hari Libur</span>
                         </a>
 
                         <a href="{{ route('admin.settings.index') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.settings.*') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="map-pin" class="w-4 h-4 {{ request()->routeIs('admin.settings.*') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('admin.settings.*') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="map-pin" class="w-4 h-4 {{ request()->routeIs('admin.settings.*') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Titik Kantor</span>
                         </a>
                     </nav>
@@ -256,26 +274,26 @@
                     </div>
                     <nav class="space-y-1">
                         <a href="{{ route('intern.dashboard') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.dashboard') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="layout-dashboard" class="w-4 h-4 {{ request()->routeIs('intern.dashboard') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.dashboard') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4 {{ request()->routeIs('intern.dashboard') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Beranda</span>
                         </a>
 
                         <a href="{{ route('intern.absen') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.absen') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="clipboard-check" class="w-4 h-4 {{ request()->routeIs('intern.absen') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.absen') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="clipboard-check" class="w-4 h-4 {{ request()->routeIs('intern.absen') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Presensi Harian</span>
                         </a>
 
                         <a href="{{ route('intern.riwayat') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.riwayat') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="history" class="w-4 h-4 {{ request()->routeIs('intern.riwayat') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.riwayat') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="history" class="w-4 h-4 {{ request()->routeIs('intern.riwayat') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Riwayat Logbook</span>
                         </a>
 
                         <a href="{{ route('intern.evaluasi') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.evaluasi') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="award" class="w-4 h-4 {{ request()->routeIs('intern.evaluasi') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.evaluasi') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="award" class="w-4 h-4 {{ request()->routeIs('intern.evaluasi') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Evaluasi Akhir</span>
                         </a>
                     </nav>
@@ -288,8 +306,8 @@
                     </div>
                     <nav class="space-y-1">
                         <a href="{{ route('intern.profil') }}"
-                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.profil') ? 'bg-blue-50 text-blue-900 font-bold border border-blue-200/80 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
-                            <i data-lucide="user" class="w-4 h-4 {{ request()->routeIs('intern.profil') ? 'text-blue-800 stroke-[2.2]' : 'text-slate-400' }}"></i>
+                           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all {{ request()->routeIs('intern.profil') ? 'bg-bps-50 text-bps-900 font-bold border border-bps-200/90 shadow-2xs' : 'text-slate-600 hover:bg-slate-100/80 hover:text-slate-900' }}">
+                            <i data-lucide="user" class="w-4 h-4 {{ request()->routeIs('intern.profil') ? 'text-bps-700 stroke-[2.2]' : 'text-slate-400' }}"></i>
                             <span class="truncate">Profil Saya</span>
                         </a>
                     </nav>
@@ -301,7 +319,7 @@
             <div class="p-3.5 border-t border-slate-200 bg-slate-50/80 shrink-0">
                 <div class="flex items-center justify-between gap-2.5">
                     <div class="flex items-center space-x-2.5 min-w-0">
-                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-900 border border-blue-200 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden shadow-2xs">
+                        <div class="w-8 h-8 rounded-full bg-bps-100 text-bps-900 border border-bps-200 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden shadow-2xs">
                             @if(auth()->user()->avatar)
                             <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                             @else
@@ -328,8 +346,11 @@
              ======================================================== -->
         <div :class="sidebarOpen ? 'lg:pl-64 xl:pl-72' : 'lg:pl-0'"
              class="flex-1 flex flex-col min-w-0 min-h-screen transition-all duration-300 ease-in-out">
+            <!-- Institutional Accent Strip (BPS Official Gradient: Navy -> Blue -> Green) -->
+            <div class="h-1 bg-gradient-to-r from-bps-900 via-bps-700 to-bps-green w-full shrink-0 sticky top-0 z-40"></div>
+
             <!-- Top Header Bar -->
-            <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs h-16 flex items-center justify-between px-3 sm:px-6 lg:px-8">
+            <header class="sticky top-1 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs h-16 flex items-center justify-between px-3 sm:px-6 lg:px-8">
                 <!-- Left: Hamburger toggle button (Desktop & Mobile) + Context Title -->
                 <div class="flex items-center space-x-3">
                     <button @click="toggleSidebar()" type="button" aria-label="Buka/Tutup Menu" title="Buka/Tutup Sidebar"
@@ -346,7 +367,7 @@
                     <!-- Desktop Context Title -->
                     <div class="hidden lg:flex items-center space-x-2 text-xs text-slate-500">
                         <span class="inline-flex items-center gap-1.5 font-bold text-slate-800">
-                            <i data-lucide="building-2" class="w-3.5 h-3.5 text-blue-800"></i>
+                            <i data-lucide="building-2" class="w-3.5 h-3.5 text-bps-700"></i>
                             <span>Badan Pusat Statistik Kab. Karanganyar</span>
                         </span>
                         <span class="text-slate-300">•</span>
@@ -358,7 +379,7 @@
                 <div class="flex items-center space-x-1.5 sm:space-x-3">
                     <!-- Live WIB Clock Widget -->
                     <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100/90 border border-slate-200 text-xs text-slate-700 font-mono shadow-2xs">
-                        <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-700"></i>
+                        <i data-lucide="clock" class="w-3.5 h-3.5 text-bps-700"></i>
                         <span id="liveWibClock">Memuat waktu...</span>
                     </div>
 
@@ -402,23 +423,23 @@
                                             <p class="text-[11px] text-amber-800 leading-relaxed">
                                                 Presensi masuk kantor BPS dibuka pukul <strong>{{ \App\Models\Setting::get('morning_start_time', '07:30') }} - {{ \App\Models\Setting::get('morning_end_time', '08:00') }} WIB</strong>. Segera lakukan presensi kehadiran Anda.
                                             </p>
-                                            <a href="{{ route('intern.absen') }}" class="inline-flex items-center gap-1 font-bold text-blue-800 hover:text-blue-900 text-[11px] pt-0.5">
+                                            <a href="{{ route('intern.absen') }}" class="inline-flex items-center gap-1 font-bold text-bps-700 hover:text-bps-900 text-[11px] pt-0.5">
                                                 <span>Isi Presensi Sekarang</span>
                                                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
                                             </a>
                                         </div>
                                     @else
-                                        <div class="p-3 rounded-lg bg-blue-50/60 border border-blue-200 text-xs space-y-2">
+                                        <div class="p-3 rounded-lg bg-bps-50/70 border border-bps-200 text-xs space-y-2">
                                             <div class="flex items-center justify-between">
                                                 <span class="font-bold text-slate-900 flex items-center gap-1.5">
-                                                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-700"></i>
+                                                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-bps-700"></i>
                                                     <span>Presensi Hari Ini</span>
                                                 </span>
                                                 <span class="text-[10px] font-bold px-2 py-0.5 rounded border {{ $headerTodayAtt->approval_badge_class }}">
                                                     {{ $headerTodayAtt->approval_status === 'approved' ? 'ACC Disetujui' : ($headerTodayAtt->approval_status === 'rejected' ? 'Ditolak' : 'Menunggu ACC') }}
                                                 </span>
                                             </div>
-                                            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2 rounded border border-blue-100">
+                                            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 bg-white p-2 rounded border border-bps-100">
                                                 <div>
                                                     <span class="text-[9px] uppercase font-bold text-slate-400 block">Jam Masuk</span>
                                                     <span class="font-mono font-bold text-slate-800">{{ $headerTodayAtt->check_in_time ? substr($headerTodayAtt->check_in_time, 0, 5) . ' WIB' : '-' }}</span>
@@ -429,7 +450,7 @@
                                                 </div>
                                             </div>
                                             @if(!$headerTodayAtt->check_out_time)
-                                                <a href="{{ route('intern.absen') }}" class="inline-flex items-center gap-1 font-bold text-blue-800 hover:text-blue-900 text-[11px]">
+                                                <a href="{{ route('intern.absen') }}" class="inline-flex items-center gap-1 font-bold text-bps-700 hover:text-bps-900 text-[11px]">
                                                     <span>Lakukan Presensi Pulang (Check-Out)</span>
                                                     <i data-lucide="arrow-right" class="w-3 h-3"></i>
                                                 </a>
@@ -446,7 +467,7 @@
                                             <p class="text-[11px] text-amber-800 leading-relaxed">
                                                 Ada permohonan presensi/izin peserta magang yang memerlukan verifikasi pembimbing.
                                             </p>
-                                            <a href="{{ route('admin.verifikasi.index') }}" class="inline-flex items-center gap-1 font-bold text-blue-800 hover:text-blue-900 text-[11px] pt-0.5">
+                                            <a href="{{ route('admin.verifikasi.index') }}" class="inline-flex items-center gap-1 font-bold text-bps-700 hover:text-bps-900 text-[11px] pt-0.5">
                                                 <span>Tinjau Presensi Sekarang</span>
                                                 <i data-lucide="arrow-right" class="w-3 h-3"></i>
                                             </a>
@@ -463,7 +484,7 @@
 
                             <div class="p-2 bg-slate-50/50 rounded-b-xl text-center">
                                 <a href="{{ $authUser->isIntern() ? route('intern.riwayat') : route('admin.verifikasi.index') }}"
-                                   class="text-[11px] font-semibold text-blue-800 hover:text-blue-900 transition">
+                                   class="text-[11px] font-semibold text-bps-700 hover:text-bps-900 transition">
                                     {{ $authUser->isIntern() ? 'Lihat Semua Riwayat Presensi →' : 'Buka Halaman Presensi →' }}
                                 </a>
                             </div>
@@ -473,7 +494,7 @@
                     <!-- User Dropdown Menu -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" type="button" class="flex items-center space-x-2 p-1.5 rounded-lg hover:bg-slate-100 transition focus:outline-none">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-900 border border-blue-200 flex items-center justify-center font-bold text-xs overflow-hidden shrink-0 shadow-2xs">
+                            <div class="w-8 h-8 rounded-full bg-bps-100 text-bps-900 border border-bps-200 flex items-center justify-center font-bold text-xs overflow-hidden shrink-0 shadow-2xs">
                                 @if(auth()->user()->avatar)
                                 <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                                 @else
@@ -493,19 +514,19 @@
                             <div class="p-3.5 bg-slate-50/70 rounded-t-xl">
                                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Akun Terdaftar</p>
                                 <p class="text-xs font-bold text-slate-900 truncate mt-0.5">{{ auth()->user()->name }}</p>
-                                <p class="text-[11px] text-blue-800 font-semibold truncate">
+                                <p class="text-[11px] text-bps-700 font-semibold truncate">
                                     {{ auth()->user()->isAdmin() ? 'Administrator & Pembimbing BPS' : (auth()->user()->internProfile->division ?? 'Peserta Magang BPS') }}
                                 </p>
                                 <p class="text-[10px] text-slate-500 font-mono mt-0.5 truncate">{{ auth()->user()->email }}</p>
                             </div>
                             <div class="py-1">
                                 @if(auth()->user()->isIntern())
-                                <a href="{{ route('intern.profil') }}" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-800 transition">
+                                <a href="{{ route('intern.profil') }}" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-bps-700 transition">
                                     <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Data Profil Akademik</span>
                                 </a>
                                 @else
-                                <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-800 transition">
+                                <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-bps-700 transition">
                                     <i data-lucide="settings" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Pengaturan Sistem</span>
                                 </a>
@@ -545,34 +566,34 @@
     <!-- Mobile Bottom Navigation Bar for Intern/Admin -->
     @if(auth()->user()->isIntern())
     <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-lg px-2 py-1 flex items-center justify-around">
-        <a href="{{ route('intern.dashboard') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.dashboard') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('intern.dashboard') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.dashboard') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="layout-dashboard" class="w-5 h-5 {{ request()->routeIs('intern.dashboard') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Beranda</span>
         </a>
 
-        <a href="{{ route('intern.absen') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.absen') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('intern.absen') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.absen') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="clipboard-check" class="w-5 h-5 {{ request()->routeIs('intern.absen') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Presensi</span>
         </a>
 
-        <a href="{{ route('intern.riwayat') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.riwayat') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('intern.riwayat') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.riwayat') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="history" class="w-5 h-5 {{ request()->routeIs('intern.riwayat') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Riwayat</span>
         </a>
 
-        <a href="{{ route('intern.profil') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.profil') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('intern.profil') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('intern.profil') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="user" class="w-5 h-5 {{ request()->routeIs('intern.profil') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Profil</span>
         </a>
     </nav>
     @else
     <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-lg px-2 py-1 flex items-center justify-around">
-        <a href="{{ route('admin.dashboard') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('admin.dashboard') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('admin.dashboard') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('admin.dashboard') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="layout-dashboard" class="w-5 h-5 {{ request()->routeIs('admin.dashboard') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Dashboard</span>
         </a>
 
-        <a href="{{ route('admin.verifikasi.index') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg relative transition {{ request()->routeIs('admin.verifikasi.*') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('admin.verifikasi.index') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg relative transition {{ request()->routeIs('admin.verifikasi.*') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="check-check" class="w-5 h-5 {{ request()->routeIs('admin.verifikasi.*') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Verifikasi</span>
             @if($pendingTotal > 0)
@@ -580,7 +601,7 @@
             @endif
         </a>
 
-        <a href="{{ route('admin.rekap.index') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('admin.rekap.*') ? 'text-blue-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
+        <a href="{{ route('admin.rekap.index') }}" class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-lg transition {{ request()->routeIs('admin.rekap.*') ? 'text-bps-900 font-bold' : 'text-slate-500 hover:text-slate-800' }}">
             <i data-lucide="file-spreadsheet" class="w-5 h-5 {{ request()->routeIs('admin.rekap.*') ? 'stroke-[2.5]' : '' }}"></i>
             <span class="text-[10px]">Rekap</span>
         </a>
@@ -643,7 +664,7 @@
             text,
             icon = 'question',
             confirmText = 'Ya, Lanjutkan',
-            confirmColor = '#1e3a8a',
+            confirmColor = '#002855',
             onConfirm
         }) {
             Swal.fire({
@@ -725,7 +746,7 @@
                         icon: 'error',
                         title: 'Data Belum Lengkap / Tidak Sesuai Syarat',
                         html: '<div class="text-left text-xs space-y-1"><ul class="list-disc list-inside">{!! implode("", array_map(fn($e) => "<li>" . e($e) . "</li>", $errors->all())) !!}</ul></div>',
-                        confirmButtonColor: '#1e3a8a',
+                        confirmButtonColor: '#002855',
                         confirmButtonText: 'Tutup & Lengkapi'
                     });
                 }

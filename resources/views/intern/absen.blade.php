@@ -23,16 +23,16 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <nav class="flex items-center space-x-2 text-xs text-slate-500 mb-1.5">
-                    <a href="{{ route('intern.dashboard') }}" class="hover:text-blue-800 transition flex items-center gap-1 font-medium">
+                    <a href="{{ route('intern.dashboard') }}" class="hover:text-bps-700 transition flex items-center gap-1 font-medium">
                         <i data-lucide="home" class="w-3.5 h-3.5"></i>
                         <span>Beranda</span>
                     </a>
                     <span class="text-slate-300">/</span>
-                    <span class="text-blue-900 font-semibold">Presensi Harian</span>
+                    <span class="text-bps-900 font-semibold">Presensi Harian</span>
                 </nav>
                 <div class="flex items-center gap-2.5 flex-wrap">
                     <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Presensi Harian Magang</h1>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 uppercase tracking-wider">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-bps-50 text-bps-900 border border-bps-200 uppercase tracking-wider">
                         BPS Karanganyar
                     </span>
                 </div>
@@ -43,14 +43,14 @@
             </div>
 
             <!-- Jam Real-Time WIB Card -->
-            <div class="self-stretch sm:self-auto flex items-center justify-between sm:justify-end gap-3 bg-gradient-to-r from-blue-50/70 to-slate-50/70 p-3.5 sm:px-4 sm:py-3 rounded-2xl border border-blue-100">
+            <div class="self-stretch sm:self-auto flex items-center justify-between sm:justify-end gap-3 bg-gradient-to-r from-bps-50/80 to-slate-50/70 p-3.5 sm:px-4 sm:py-3 rounded-2xl border border-bps-100">
                 <div class="text-left sm:text-right">
-                    <div class="flex items-center sm:justify-end gap-1.5 text-[10px] uppercase font-bold text-blue-700 tracking-wider">
+                    <div class="flex items-center sm:justify-end gap-1.5 text-[10px] uppercase font-bold text-bps-700 tracking-wider">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                         <span>Waktu Real-Time (WIB)</span>
                     </div>
-                    <div class="flex items-center sm:justify-end gap-1.5 font-mono text-lg sm:text-xl font-extrabold text-blue-950 mt-0.5">
-                        <i data-lucide="clock" class="w-4 h-4 text-blue-700"></i>
+                    <div class="flex items-center sm:justify-end gap-1.5 font-mono text-lg sm:text-xl font-extrabold text-bps-900 mt-0.5">
+                        <i data-lucide="clock" class="w-4 h-4 text-bps-700"></i>
                         <span id="liveClockDisplay">{{ $now->format('H:i:s') }} WIB</span>
                     </div>
                     <span class="text-[11px] text-slate-500 font-medium block">{{ $today->translatedFormat('l, d F Y') }}</span>
@@ -86,18 +86,18 @@
             </div>
 
             <!-- Card Pulang -->
-            <div class="p-3.5 rounded-2xl border transition {{ $window['is_afternoon_open'] ? 'bg-blue-50/60 border-blue-300 text-blue-950' : ($window['is_afternoon_closed'] ? 'bg-rose-50/60 border-rose-300 text-rose-950' : 'bg-slate-50/70 border-slate-200 text-slate-700') }}">
+            <div class="p-3.5 rounded-2xl border transition {{ $window['is_afternoon_open'] ? 'bg-bps-50/70 border-bps-300 text-bps-900' : ($window['is_afternoon_closed'] ? 'bg-rose-50/60 border-rose-300 text-rose-950' : 'bg-slate-50/70 border-slate-200 text-slate-700') }}">
                 <div class="flex items-center justify-between mb-1.5">
                     <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-600">
+                        <div class="w-7 h-7 rounded-lg bg-bps-100 flex items-center justify-center text-bps-700">
                             <i data-lucide="sunset" class="w-4 h-4"></i>
                         </div>
                         <span class="font-bold text-xs sm:text-sm">2. Presensi Pulang</span>
                     </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase font-mono {{ $window['is_afternoon_open'] ? 'bg-blue-200 text-blue-900' : ($window['is_afternoon_closed'] ? 'bg-rose-200 text-rose-900' : 'bg-slate-200 text-slate-700') }}">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase font-mono {{ $window['is_afternoon_open'] ? 'bg-bps-200 text-bps-900' : ($window['is_afternoon_closed'] ? 'bg-rose-200 text-rose-900' : 'bg-slate-200 text-slate-700') }}">
                         @if($window['is_afternoon_too_early'])
                             <span>Buka {{ $window['afternoon_start'] }}</span>
-                            <span class="hidden sm:inline text-[9px] font-mono text-blue-900 font-bold ml-1">(<span id="countdownPulangDisplay">...</span>)</span>
+                            <span class="hidden sm:inline text-[9px] font-mono text-bps-700 font-bold ml-1">(<span id="countdownPulangDisplay">...</span>)</span>
                         @elseif($window['is_afternoon_open'])
                             Sedang Buka
                         @else
@@ -107,7 +107,7 @@
                 </div>
                 <div class="text-[11px] sm:text-xs text-slate-600 space-y-0.5 pl-9">
                     <div>Jam Buka: <strong class="text-slate-900 font-mono">{{ $window['afternoon_start'] }} - {{ $window['afternoon_end'] }} WIB</strong>
-                        @if($window['is_friday']) <span class="text-indigo-700 font-semibold">(Jumat s.d. 17:30)</span> @endif
+                        @if($window['is_friday']) <span class="text-bps-700 font-semibold">(Jumat s.d. 17:30)</span> @endif
                     </div>
                     <div class="text-slate-500">Wajib isi ringkasan laporan pekerjaan & lokasi GPS.</div>
                 </div>
@@ -233,7 +233,7 @@
         <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-100/90 rounded-xl text-xs sm:text-sm font-semibold">
             <!-- Tab 1: Pagi (Datang) -->
             <button type="button" @click="switchTab('pagi')"
-                    :class="activeTab === 'pagi' ? 'bg-white text-blue-900 shadow-xs border border-slate-200/60' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
+                    :class="activeTab === 'pagi' ? 'bg-white text-bps-900 font-bold shadow-xs border border-slate-200/80' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
                     class="py-2.5 sm:py-3 px-2 sm:px-4 rounded-lg flex items-center justify-center gap-1.5 sm:gap-2 transition cursor-pointer">
                 <i data-lucide="sunrise" class="w-4 h-4 text-amber-500 shrink-0"></i>
                 <span class="truncate">Presensi Masuk</span>
@@ -244,9 +244,9 @@
 
             <!-- Tab 2: Pulang (Sore) -->
             <button type="button" @click="switchTab('pulang')"
-                    :class="activeTab === 'pulang' ? 'bg-white text-blue-900 shadow-xs border border-slate-200/60' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
+                    :class="activeTab === 'pulang' ? 'bg-white text-bps-900 font-bold shadow-xs border border-slate-200/80' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
                     class="py-2.5 sm:py-3 px-2 sm:px-4 rounded-lg flex items-center justify-center gap-1.5 sm:gap-2 transition cursor-pointer">
-                <i data-lucide="sunset" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+                <i data-lucide="sunset" class="w-4 h-4 text-bps-700 shrink-0"></i>
                 <span class="truncate">Presensi Pulang</span>
                 @if($existing && $existing->check_out_time)
                     <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="Sudah Pulang"></span>
@@ -255,9 +255,9 @@
 
             <!-- Tab 3: Izin / Sakit -->
             <button type="button" @click="switchTab('izin')"
-                    :class="activeTab === 'izin' ? 'bg-white text-blue-900 shadow-xs border border-slate-200/60' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
+                    :class="activeTab === 'izin' ? 'bg-white text-bps-900 font-bold shadow-xs border border-slate-200/80' : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'"
                     class="py-2.5 sm:py-3 px-2 sm:px-4 rounded-lg flex items-center justify-center gap-1.5 sm:gap-2 transition cursor-pointer">
-                <i data-lucide="file-text" class="w-4 h-4 text-amber-600 shrink-0"></i>
+                <i data-lucide="file-text" class="w-4 h-4 text-bps-orange shrink-0"></i>
                 <span class="truncate">Izin / Sakit</span>
             </button>
         </div>
@@ -337,7 +337,7 @@
                         </div>
 
                         <button type="button" @click="detectLocation()" :disabled="detecting"
-                                class="h-9 px-4 rounded-xl bg-blue-800 hover:bg-blue-900 text-white text-xs font-semibold transition inline-flex items-center justify-center gap-1.5 shadow-2xs self-start sm:self-auto cursor-pointer">
+                                class="h-9 px-4 rounded-xl bg-bps-900 hover:bg-bps-800 text-white text-xs font-semibold transition inline-flex items-center justify-center gap-1.5 shadow-2xs self-start sm:self-auto cursor-pointer">
                             <i data-lucide="crosshair" class="w-3.5 h-3.5" :class="detecting ? 'animate-spin' : ''"></i>
                             <span x-text="detecting ? 'Mencari Titik GPS...' : 'Deteksi Lokasi Saya'"></span>
                         </button>
@@ -377,7 +377,7 @@
                 <!-- Checkbox Konfirmasi -->
                 <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
                     <input type="checkbox" name="is_confirmed" id="confirm_pagi" value="1" x-model="isConfirmedPagi" required
-                           class="w-4 h-4 mt-0.5 text-blue-800 rounded border-slate-300 focus:ring-blue-800 cursor-pointer shrink-0">
+                           class="w-4 h-4 mt-0.5 text-bps-900 rounded border-slate-300 focus:ring-bps-900 cursor-pointer shrink-0">
                     <label for="confirm_pagi" class="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
                         Saya menyatakan hadir di lingkungan kantor Badan Pusat Statistik Kabupaten Karanganyar hari ini secara sah dan benar.
                     </label>
@@ -399,7 +399,7 @@
                         </button>
                     @else
                         <button type="submit" :disabled="submittingPagi"
-                                class="w-full h-12 rounded-2xl font-bold text-xs sm:text-sm text-white transition inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer {{ $window['is_morning_late'] ? 'bg-amber-600 hover:bg-amber-700' : 'bg-blue-800 hover:bg-blue-900' }}">
+                                class="w-full h-12 rounded-2xl font-bold text-xs sm:text-sm text-white transition inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer {{ $window['is_morning_late'] ? 'bg-amber-600 hover:bg-amber-700' : 'bg-bps-900 hover:bg-bps-800' }}">
                             <template x-if="submittingPagi">
                                 <span class="inline-flex items-center gap-2">
                                     <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
@@ -438,7 +438,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
                     <div>
                         <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                            <i data-lucide="sunset" class="w-5 h-5 text-indigo-600"></i>
+                            <i data-lucide="sunset" class="w-5 h-5 text-bps-700"></i>
                             <span>Presensi Pulang & Laporan Aktivitas</span>
                         </h2>
                         <p class="text-xs text-slate-500 mt-0.5">Jam operasional: 16:00 - {{ $window['afternoon_end'] }} WIB @if($window['is_friday']) (Khusus Jumat s.d. 17:30 WIB) @endif</p>
@@ -462,22 +462,22 @@
                         </div>
                     </div>
                 @elseif($window['is_afternoon_too_early'])
-                    <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 to-indigo-50/70 border border-blue-200 text-blue-900 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                    <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-bps-50/90 to-slate-50/80 border border-bps-200 text-bps-900 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
                         <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
+                            <div class="w-8 h-8 rounded-xl bg-bps-700 text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
                                 <i data-lucide="timer" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <strong class="font-bold text-blue-950 block">Presensi kepulangan belum dibuka.</strong>
-                                <p class="mt-0.5 text-xs text-blue-800 leading-relaxed">
+                                <strong class="font-bold text-bps-900 block">Presensi kepulangan belum dibuka.</strong>
+                                <p class="mt-0.5 text-xs text-bps-800 leading-relaxed">
                                     Presensi kepulangan & laporan pekerjaan dibuka pukul <strong>16:00 WIB</strong>.
                                 </p>
                             </div>
                         </div>
-                        <div class="px-3.5 py-2 rounded-xl bg-white border border-blue-200/90 shadow-xs flex items-center gap-2 self-start sm:self-auto shrink-0">
-                            <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+                        <div class="px-3.5 py-2 rounded-xl bg-white border border-bps-200 shadow-xs flex items-center gap-2 self-start sm:self-auto shrink-0">
+                            <span class="w-2 h-2 rounded-full bg-bps-700 animate-ping"></span>
                             <span class="text-[11px] text-slate-500 font-medium">Dibuka dalam:</span>
-                            <span id="countdownPulangDetail" class="font-mono text-xs sm:text-sm font-bold text-blue-950">Menghitung...</span>
+                            <span id="countdownPulangDetail" class="font-mono text-xs sm:text-sm font-bold text-bps-900">Menghitung...</span>
                         </div>
                     </div>
                 @elseif($window['is_afternoon_closed'])
@@ -506,7 +506,7 @@
                     <textarea name="activity_description" id="pulang_activity" rows="4" required
                               x-model="activityDescription"
                               placeholder="Tuliskan ringkasan tugas atau pekerjaan yang telah Anda selesaikan hari ini di BPS Karanganyar... (Contoh: Membantu entri data sensus pertanian, menyusun rekapitulasi data inflasi, menyortir dokumen survei tahunan)"
-                              class="w-full text-xs sm:text-sm p-4 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 outline-none transition leading-relaxed shadow-2xs">{{ old('activity_description', $existing?->activity_description) }}</textarea>
+                              class="w-full text-xs sm:text-sm p-4 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-bps-700/20 focus:border-bps-700 outline-none transition leading-relaxed shadow-2xs">{{ old('activity_description', $existing?->activity_description) }}</textarea>
                     <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
                         <span>Laporan ini langsung tersimpan ke sistem verifikasi Pembimbing BPS.</span>
@@ -522,7 +522,7 @@
                         </div>
 
                         <button type="button" @click="detectLocation()" :disabled="detecting"
-                                class="h-9 px-4 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-semibold transition inline-flex items-center justify-center gap-1.5 shadow-2xs self-start sm:self-auto cursor-pointer">
+                                class="h-9 px-4 rounded-xl bg-bps-700 hover:bg-bps-800 text-white text-xs font-semibold transition inline-flex items-center justify-center gap-1.5 shadow-2xs self-start sm:self-auto cursor-pointer">
                             <i data-lucide="crosshair" class="w-3.5 h-3.5" :class="detecting ? 'animate-spin' : ''"></i>
                             <span x-text="detecting ? 'Mencari Titik GPS...' : 'Cek Lokasi Saya'"></span>
                         </button>
@@ -542,7 +542,7 @@
                 <!-- Checkbox Konfirmasi -->
                 <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
                     <input type="checkbox" name="is_confirmed" id="confirm_pulang" value="1" x-model="isConfirmedPulang" required
-                           class="w-4 h-4 mt-0.5 text-indigo-700 rounded border-slate-300 focus:ring-indigo-700 cursor-pointer shrink-0">
+                           class="w-4 h-4 mt-0.5 text-bps-700 rounded border-slate-300 focus:ring-bps-700 cursor-pointer shrink-0">
                     <label for="confirm_pulang" class="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
                         Saya menyatakan telah menyelesaikan tugas harian dan laporan yang dikirimkan adalah benar sesuai pekerjaan di BPS Karanganyar.
                     </label>
@@ -576,7 +576,7 @@
                         </button>
                     @else
                         <button type="submit" :disabled="submittingPulang"
-                                class="w-full h-12 rounded-2xl bg-indigo-700 hover:bg-indigo-800 font-bold text-xs sm:text-sm text-white transition inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+                                class="w-full h-12 rounded-2xl bg-bps-700 hover:bg-bps-800 font-bold text-xs sm:text-sm text-white transition inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer">
                             <template x-if="submittingPulang">
                                 <span class="inline-flex items-center gap-2">
                                     <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
@@ -632,10 +632,10 @@
                         </label>
 
                         <label class="flex items-center p-3.5 rounded-2xl border cursor-pointer transition"
-                               :class="subStatus === 'izin' ? 'border-blue-500 bg-blue-50/70 font-bold text-blue-950 shadow-2xs' : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-white'">
+                               :class="subStatus === 'izin' ? 'border-bps-700 bg-bps-50/70 font-bold text-bps-900 shadow-2xs' : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-white'">
                             <input type="radio" name="sub_status" value="izin" x-model="subStatus" class="sr-only">
                             <span class="w-4 h-4 rounded-full border mr-2.5 flex items-center justify-center shrink-0"
-                                  :class="subStatus === 'izin' ? 'border-blue-600 bg-blue-600' : 'border-slate-300'">
+                                  :class="subStatus === 'izin' ? 'border-bps-700 bg-bps-700' : 'border-slate-300'">
                                 <span class="w-1.5 h-1.5 rounded-full bg-white" x-show="subStatus === 'izin'"></span>
                             </span>
                             <span>Izin Kepentingan</span>
@@ -673,14 +673,14 @@
                     <!-- Pilihan 2 Aksi: Kamera Langsung HP atau Pilih Berkas Dokumen -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <!-- Pilihan 1: Foto Kamera HP Langsung -->
-                        <label class="p-3.5 rounded-2xl border border-slate-200 bg-slate-50/80 hover:bg-blue-50/70 hover:border-blue-300 transition cursor-pointer flex items-center gap-3 group shadow-2xs">
+                        <label class="p-3.5 rounded-2xl border border-slate-200 bg-slate-50/80 hover:bg-bps-50/70 hover:border-bps-300 transition cursor-pointer flex items-center gap-3 group shadow-2xs">
                             <input type="file" name="attachment_file_camera" id="attachment_camera_input" accept="image/*" capture="environment" class="sr-only"
                                    @change="handleFileSelect($event)">
-                            <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition shadow-2xs">
+                            <div class="w-9 h-9 rounded-xl bg-bps-100 text-bps-900 flex items-center justify-center shrink-0 group-hover:scale-105 transition shadow-2xs">
                                 <i data-lucide="camera" class="w-4 h-4"></i>
                             </div>
                             <div class="min-w-0">
-                                <span class="text-xs font-bold text-slate-900 block group-hover:text-blue-900">Foto Kamera Langsung</span>
+                                <span class="text-xs font-bold text-slate-900 block group-hover:text-bps-900">Foto Kamera Langsung</span>
                                 <span class="text-[10px] text-slate-500 block truncate">Ambil foto surat dokter via kamera HP</span>
                             </div>
                         </label>
@@ -727,7 +727,7 @@
                 <!-- Checkbox Konfirmasi -->
                 <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3">
                     <input type="checkbox" name="is_confirmed" id="confirm_izin" value="1" required
-                           class="w-4 h-4 mt-0.5 text-blue-800 rounded border-slate-300 focus:ring-blue-800 cursor-pointer shrink-0">
+                           class="w-4 h-4 mt-0.5 text-bps-900 rounded border-slate-300 focus:ring-bps-900 cursor-pointer shrink-0">
                     <label for="confirm_izin" class="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
                         Saya menyatakan keterangan tidak hadir ini adalah benar dan dapat dipertanggungjawabkan kepada Pembimbing BPS Karanganyar.
                     </label>

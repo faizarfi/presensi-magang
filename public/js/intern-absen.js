@@ -177,20 +177,20 @@ function internAttendancePage() {
                 // Marker Kantor BPS
                 const bpsIcon = L.divIcon({
                     className: 'bps-pin',
-                    html: `<div style="background-color:#1e3a8a;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);border:2px solid white;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>`,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16]
+                    html: `<div style="background-color:#002855;color:white;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,40,85,0.4);border:2.5px solid white;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>`,
+                    iconSize: [34, 34],
+                    iconAnchor: [17, 17]
                 });
 
                 L.marker([this.officeConfig.lat, this.officeConfig.lng], { icon: bpsIcon }).addTo(this.map)
                     .bindPopup(`<strong>${this.officeConfig.name}</strong><br>Pusat Presensi Magang`)
                     .openPopup();
 
-                // Lingkaran Radius Kantor
+                // Lingkaran Radius Kantor BPS
                 L.circle([this.officeConfig.lat, this.officeConfig.lng], {
-                    color: '#2563eb',
-                    fillColor: '#3b82f6',
-                    fillOpacity: 0.15,
+                    color: '#0055a5',
+                    fillColor: '#0055a5',
+                    fillOpacity: 0.12,
                     radius: this.officeConfig.radius
                 }).addTo(this.map);
             } catch (err) {
@@ -277,7 +277,7 @@ function internAttendancePage() {
                 this.map.removeLayer(this.userMarker);
             }
 
-            const userColor = isInside ? '#059669' : '#dc2626';
+            const userColor = isInside ? '#008850' : '#dc2626';
             const userIcon = L.divIcon({
                 className: 'user-pin',
                 html: `<div style="background-color:${userColor};color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid white;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="7" r="4"/><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/></svg></div>`,

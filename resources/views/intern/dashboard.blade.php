@@ -9,7 +9,7 @@
     <div class="bg-white rounded-xl border border-slate-200 shadow-xs p-4 sm:p-6">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5">
             <div class="flex items-start sm:items-center space-x-3 sm:space-x-4">
-                <div class="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-blue-100 text-blue-900 border border-blue-200 flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0 overflow-hidden shadow-2xs">
+                <div class="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-bps-100 text-bps-900 border border-bps-200 flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0 overflow-hidden shadow-2xs">
                     @if($user->avatar)
                         <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                     @else
@@ -19,7 +19,7 @@
                 <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
                         <h1 class="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight leading-tight">{{ $user->name }}</h1>
-                        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
+                        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-bps-50 text-bps-900 border border-bps-200">
                             Peserta Magang
                         </span>
                     </div>
@@ -28,7 +28,7 @@
                         <span class="text-slate-300 hidden sm:inline">•</span>
                         <span>{{ $profile->major ?? '-' }}</span>
                         <span class="text-slate-300 hidden sm:inline">•</span>
-                        <span class="inline-flex items-center font-semibold text-blue-900 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 text-[11px]">
+                        <span class="inline-flex items-center font-semibold text-bps-900 bg-bps-50 px-2 py-0.5 rounded border border-bps-200 text-[11px]">
                             Seksi {{ $profile->division ?? 'Subbagian Umum' }}
                         </span>
                     </div>
@@ -41,7 +41,7 @@
             <!-- Tombol Aksi Cepat Presensi (Full-width on mobile, neat on desktop) -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full lg:w-auto pt-2 lg:pt-0">
                 @if(!$todayAttendance)
-                    <a href="{{ route('intern.absen') }}" class="h-10 px-5 text-xs sm:text-sm font-semibold rounded-lg bg-blue-800 hover:bg-blue-900 text-white shadow-xs inline-flex items-center justify-center gap-2 transition w-full sm:w-auto">
+                    <a href="{{ route('intern.absen') }}" class="h-10 px-5 text-xs sm:text-sm font-semibold rounded-lg bg-bps-900 hover:bg-bps-800 text-white shadow-xs inline-flex items-center justify-center gap-2 transition w-full sm:w-auto">
                         <i data-lucide="clipboard-check" class="w-4 h-4"></i>
                         <span>Isi Presensi Hari Ini</span>
                     </a>
@@ -63,13 +63,13 @@
         <div class="mt-5 pt-4 border-t border-slate-100">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-slate-600 mb-2">
                 <span class="font-medium flex items-center gap-1.5">
-                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-700"></i>
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-bps-700"></i>
                     <span>Periode Magang ({{ $profile->duration_label ?? '3 Bulan' }}): <strong>Hari ke-{{ min($elapsedDays, $totalDays) }} dari {{ $totalDays }} hari</strong></span>
                 </span>
                 <span class="font-mono font-semibold text-slate-800">{{ $progress }}% Selesai (Sisa {{ $remainingDays }} hari)</span>
             </div>
             <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                <div class="bg-blue-700 h-2 rounded-full transition-all duration-700"
+                <div class="bg-bps-700 h-2 rounded-full transition-all duration-700"
                      @style(['width: ' . $progress . '%'])></div>
             </div>
             <div class="flex flex-col sm:flex-row justify-between text-[11px] text-slate-400 mt-2 gap-1">
@@ -87,8 +87,8 @@
             <div>
                 <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-100">
                     <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-800 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="clock" class="w-4 h-4"></i>
+                        <div class="w-9 h-9 rounded-lg bg-bps-50 text-bps-900 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="clock" class="w-4 h-4 text-bps-700"></i>
                         </div>
                         <div>
                             <h2 class="text-sm sm:text-base font-bold text-slate-900">Status Kehadiran Hari Ini</h2>
@@ -190,7 +190,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a href="{{ route('intern.absen') }}" class="w-full md:w-auto h-9 px-4 text-xs font-semibold rounded-lg bg-blue-800 hover:bg-blue-900 text-white shadow-xs inline-flex items-center justify-center gap-1.5 transition whitespace-nowrap flex-shrink-0">
+                            <a href="{{ route('intern.absen') }}" class="w-full md:w-auto h-9 px-4 text-xs font-semibold rounded-lg bg-bps-900 hover:bg-bps-800 text-white shadow-xs inline-flex items-center justify-center gap-1.5 transition whitespace-nowrap flex-shrink-0">
                                 <span>Kirim Presensi Sekarang</span>
                                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </a>
@@ -212,8 +212,8 @@
         <div class="bg-white rounded-xl p-4 sm:p-6 shadow-xs border border-slate-200 flex flex-col justify-between">
             <div>
                 <div class="flex items-center space-x-3 pb-3 sm:pb-4 border-b border-slate-100">
-                    <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-800 flex items-center justify-center flex-shrink-0">
-                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <div class="w-9 h-9 rounded-lg bg-bps-50 text-bps-900 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-bps-700"></i>
                     </div>
                     <div>
                         <h2 class="text-sm sm:text-base font-bold text-slate-900">Titik Kantor BPS</h2>
@@ -244,7 +244,7 @@
             </div>
 
             <div class="mt-4 pt-3 border-t border-slate-100 text-center">
-                <a href="{{ route('intern.absen') }}" class="text-xs font-semibold text-blue-800 hover:text-blue-950 inline-flex items-center gap-1">
+                <a href="{{ route('intern.absen') }}" class="text-xs font-semibold text-bps-700 hover:text-bps-900 inline-flex items-center gap-1">
                     <span>Buka Peta Presensi Geospasial</span>
                     <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 </a>
@@ -256,10 +256,10 @@
     <div>
         <div class="flex items-center justify-between mb-3">
             <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
-                <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-800"></i>
+                <i data-lucide="bar-chart-2" class="w-4 h-4 text-bps-700"></i>
                 <span>Statistik Presensi Bulan Ini ({{ $today->translatedFormat('F Y') }})</span>
             </h2>
-            <a href="{{ route('intern.riwayat') }}" class="text-xs font-semibold text-blue-800 hover:text-blue-950 flex items-center gap-1">
+            <a href="{{ route('intern.riwayat') }}" class="text-xs font-semibold text-bps-700 hover:text-bps-900 flex items-center gap-1">
                 <span>Lihat Riwayat Lengkap</span>
                 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
             </a>
@@ -306,7 +306,7 @@
             <div class="bg-white rounded-xl p-3.5 sm:p-4 shadow-xs border border-slate-200">
                 <div class="flex items-center justify-between mb-1.5">
                     <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Disiplin</span>
-                    <div class="w-7 h-7 rounded-md bg-blue-50 text-blue-700 flex items-center justify-center">
+                    <div class="w-7 h-7 rounded-md bg-bps-50 text-bps-700 flex items-center justify-center">
                         <i data-lucide="percent" class="w-4 h-4"></i>
                     </div>
                 </div>
@@ -363,7 +363,7 @@
                                 <i data-lucide="hourglass" class="w-3 h-3 text-amber-700"></i> Menunggu ACC
                             @endif
                         </span>
-                        <a href="{{ route('intern.riwayat') }}#item-{{ $item->id }}" class="text-blue-800 font-semibold text-[11px] inline-flex items-center gap-0.5">
+                        <a href="{{ route('intern.riwayat') }}#item-{{ $item->id }}" class="text-bps-700 hover:text-bps-900 font-semibold text-[11px] inline-flex items-center gap-0.5">
                             <span>Detail</span>
                             <i data-lucide="chevron-right" class="w-3 h-3"></i>
                         </a>
@@ -419,7 +419,7 @@
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-right whitespace-nowrap">
-                                <a href="{{ route('intern.riwayat') }}#item-{{ $item->id }}" class="text-blue-800 hover:text-blue-950 font-semibold inline-flex items-center gap-1">
+                                <a href="{{ route('intern.riwayat') }}#item-{{ $item->id }}" class="text-bps-700 hover:text-bps-900 font-semibold inline-flex items-center gap-1">
                                     <span>Detail</span>
                                     <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                                 </a>
