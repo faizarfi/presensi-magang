@@ -27,6 +27,11 @@ class DatabaseSeeder extends Seeder
             'office_radius_meters' => ['value' => '150', 'description' => 'Toleransi Radius Kehadiran (meter)'],
             'work_start_time' => ['value' => '07:30', 'description' => 'Jam Mulai Kerja'],
             'work_end_time' => ['value' => '16:00', 'description' => 'Jam Selesai Kerja'],
+            'morning_start_time' => ['value' => '07:30', 'description' => 'Jam Buka Presensi Pagi'],
+            'morning_end_time' => ['value' => '08:00', 'description' => 'Batas Tepat Waktu Presensi Pagi'],
+            'afternoon_start_time' => ['value' => '16:00', 'description' => 'Jam Buka Presensi Pulang'],
+            'afternoon_end_time' => ['value' => '17:00', 'description' => 'Jam Tutup Presensi Pulang (Senin - Kamis)'],
+            'afternoon_end_time_friday' => ['value' => '17:30', 'description' => 'Jam Tutup Presensi Pulang (Jumat)'],
         ];
 
         foreach ($settings as $key => $data) {

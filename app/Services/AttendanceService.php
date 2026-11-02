@@ -34,18 +34,76 @@ class AttendanceService
     }
 
     /**
-     * Dapatkan konfigurasi kantor BPS Karanganyar
+     * Dapatkan konfigurasi kantor BPS Karanganyar dan jadwal presensi
      */
     public static function getOfficeConfig(): array
     {
+        $today = Carbon::today();
+        $isFriday = $today->isFriday();
+
+        $morningStart = Setting::get('morning_start_time', '07:30');
+        $morningEnd = Setting::get('morning_end_time', '08:00');
+        $afternoonStart = Setting::get('afternoon_start_time', '16:00');
+        $afternoonEndRegular = Setting::get('afternoon_end_time', '17:00');
+        $afternoonEndFriday = Setting::get('afternoon_end_time_friday', '17:30');
+        $afternoonEnd = $isFriday ? $afternoonEndFriday : $afternoonEndRegular;
+
         return [
             'name' => Setting::get('office_name', 'BPS Kabupaten Karanganyar'),
             'address' => Setting::get('office_address', 'Komplek Perkantoran Cangakan, Jl. Majapahit No. 11 B, Badran Asri, Bejen, Karanganyar 57712'),
             'latitude' => (float) Setting::get('office_latitude', -7.5978000),
             'longitude' => (float) Setting::get('office_longitude', 110.9505000),
             'radius' => (float) Setting::get('office_radius_meters', 150),
-            'work_start_time' => Setting::get('work_start_time', '07:30'),
-            'work_end_time' => Setting::get('work_end_time', '16:00'),
+            'work_start_time' => $morningStart,
+            'work_end_time' => $afternoonStart,
+            'morning_start_time' => $morningStart,
+            'morning_end_time' => $morningEnd,
+            'afternoon_start_time' => $afternoonStart,
+            'afternoon_end_time' => $afternoonEndRegular,
+            'afternoon_end_time_friday' => $afternoonEndFriday,
+            'today_afternoon_end_time' => $afternoonEnd,
+            'is_friday' => $isFriday,
+        ];
+    }
+
+    /**
+     * Dapatkan status window jam buka / tutup presensi pagi & pulang secara real-time
+     */
+    public static function getAttendanceWindowStatus(?Carbon $now = null): array
+    {
+        $now = $now ?: Carbon::now('Asia/Jakarta');
+        $config = self::getOfficeConfig();
+        $currentTime = $now->format('H:i');
+        $isFriday = $config['is_friday'];
+        $afternoonCloseTime = $config['today_afternoon_end_time'];
+
+        // Status Pagi (07:30 - 08:00)
+        $isMorningTooEarly = $currentTime < $config['morning_start_time']; // Sebelum 07:30
+        $isMorningOnTime = ($currentTime >= $config['morning_start_time'] && $currentTime <= $config['morning_end_time']); // 07:30 - 08:00
+        $isMorningLate = $currentTime > $config['morning_end_time']; // Lewat 08:00
+        $isMorningOpen = $currentTime >= $config['morning_start_time']; // Buka mulai 07:30
+
+        // Status Pulang (16:00 - 17:00 / 17:30 di hari Jumat)
+        $isAfternoonTooEarly = $currentTime < $config['afternoon_start_time']; // Sebelum 16:00
+        $isAfternoonOpen = ($currentTime >= $config['afternoon_start_time'] && $currentTime <= $afternoonCloseTime); // 16:00 - 17:00 (Jumat 17:30)
+        $isAfternoonClosed = $currentTime > $afternoonCloseTime; // Lewat 17:00 / 17:30
+
+        return [
+            'current_time' => $currentTime,
+            'is_friday' => $isFriday,
+            'morning_start' => $config['morning_start_time'],
+            'morning_end' => $config['morning_end_time'],
+            'afternoon_start' => $config['afternoon_start_time'],
+            'afternoon_end' => $afternoonCloseTime,
+            'afternoon_end_friday' => $config['afternoon_end_time_friday'],
+            'afternoon_end_regular' => $config['afternoon_end_time'],
+            'is_morning_too_early' => $isMorningTooEarly,
+            'is_morning_on_time' => $isMorningOnTime,
+            'is_morning_late' => $isMorningLate,
+            'is_morning_open' => $isMorningOpen,
+            'is_afternoon_too_early' => $isAfternoonTooEarly,
+            'is_afternoon_open' => $isAfternoonOpen,
+            'is_afternoon_closed' => $isAfternoonClosed,
         ];
     }
 

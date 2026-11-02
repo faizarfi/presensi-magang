@@ -219,7 +219,19 @@ class AttendanceSystemTest extends TestCase
 
         // 3. Intern Routes
         $this->actingAs($intern)->get(route('intern.dashboard'))->assertStatus(200);
-        $this->actingAs($intern)->get(route('intern.absen'))->assertStatus(200);
+        $absenView = $this->actingAs($intern)->get(route('intern.absen'));
+        $absenView->assertStatus(200);
+        $absenView->assertSee('1. Presensi Masuk (Datang)');
+        $absenView->assertSee('2. Presensi Pulang (Check-Out)');
+        $absenView->assertSee('3. Tidak Hadir (Izin/Sakit)');
+        $absenView->assertDontSee('Tanpa Keterangan (Alpa)');
+        $absenView->assertDontSee('3. Tanpa Keterangan');
+        $absenView->assertSee('Alasan / Keterangan Keterlambatan Masuk');
+        $absenView->assertSee('(Opsional)');
+        $absenView->assertSee('Jarak dari Kantor:');
+        $absenView->assertSee('cameraPhotoInput');
+        $absenView->assertSee('Menyimpan Presensi...');
+        $absenView->assertSee('Notifikasi & Status');
         $this->actingAs($intern)->get(route('intern.riwayat'))->assertStatus(200);
         $this->actingAs($intern)->get(route('intern.profil'))->assertStatus(200);
     }
@@ -494,6 +506,90 @@ class AttendanceSystemTest extends TestCase
         $internView = $this->actingAs($intern)->get(route('intern.evaluasi'));
         $internView->assertOk();
         $internView->assertSee('A (Sangat Baik)');
+    }
+
+    /**
+     * Test 14: Peserta Magang Dapat Memperbarui Logbook Hari Ini Tanpa Error Duplikasi
+     */
+    public function test_intern_can_update_attendance_logbook(): void
+    {
+        $intern = User::where('email', 'magang@bps.go.id')->first();
+        Attendance::where('user_id', $intern->id)->where('date', Carbon::today()->toDateString())->delete();
+
+        // 1. Absen pertama kali
+        $response1 = $this->actingAs($intern)->post(route('intern.absen.store'), [
+            'status' => 'hadir',
+            'latitude' => -7.597810,
+            'longitude' => 110.950510,
+            'activity_description' => 'Aktivitas awal pagi hari di kantor BPS Karanganyar.',
+            'learning_obtained' => 'Belajar pengolahan data survei statistik.',
+            'constraints_encountered' => '-',
+            'is_confirmed' => '1',
+        ]);
+        $response1->assertRedirect(route('intern.dashboard'));
+
+        $this->assertDatabaseHas('attendances', [
+            'user_id' => $intern->id,
+            'date' => Carbon::today()->toDateString(),
+            'activity_description' => 'Aktivitas awal pagi hari di kantor BPS Karanganyar.',
+        ]);
+
+        // 2. Perbarui logbook di hari yang sama
+        $response2 = $this->actingAs($intern)->post(route('intern.absen.store'), [
+            'status' => 'hadir',
+            'activity_description' => 'Aktivitas lanjutan dan penyelesaian laporan sensus BPS yang telah diperbarui.',
+            'learning_obtained' => 'Memahami teknik validasi data statistik lanjutan.',
+            'constraints_encountered' => 'Tidak ada kendala, berjalan lancar.',
+            'is_confirmed' => '1',
+        ]);
+        $response2->assertRedirect(route('intern.dashboard'));
+        $response2->assertSessionHas('success');
+
+        $this->assertDatabaseHas('attendances', [
+            'user_id' => $intern->id,
+            'date' => Carbon::today()->toDateString(),
+            'activity_description' => 'Aktivitas lanjutan dan penyelesaian laporan sensus BPS yang telah diperbarui.',
+        ]);
+    }
+
+    /**
+     * Test 15: Peserta Magang Dapat Melakukan Presensi Pulang Langsung dari Opsi Formulir Utama
+     */
+    public function test_intern_can_checkout_via_main_form_status_pulang(): void
+    {
+        $intern = User::where('email', 'magang@bps.go.id')->first();
+        Attendance::where('user_id', $intern->id)->where('date', Carbon::today()->toDateString())->delete();
+
+        // Absen masuk
+        Attendance::create([
+            'user_id' => $intern->id,
+            'date' => Carbon::today()->toDateString(),
+            'status' => 'hadir',
+            'sub_status' => 'hadir_kantor',
+            'check_in_time' => '07:28:00',
+            'latitude' => -7.597810,
+            'longitude' => 110.950510,
+            'distance_meters' => 10,
+            'activity_description' => 'Aktivitas magang BPS.',
+            'learning_obtained' => 'Analisis data.',
+            'constraints_encountered' => '-',
+            'is_confirmed' => true,
+            'approval_status' => 'pending',
+        ]);
+
+        // Kirim presensi pulang via store dengan status 'pulang'
+        $response = $this->actingAs($intern)->post(route('intern.absen.store'), [
+            'status' => 'pulang',
+            'latitude' => -7.597810,
+            'longitude' => 110.950510,
+            'is_confirmed' => '1',
+        ]);
+
+        $response->assertRedirect(route('intern.dashboard'));
+        $response->assertSessionHas('success');
+
+        $attendance = Attendance::where('user_id', $intern->id)->where('date', Carbon::today()->toDateString())->first();
+        $this->assertNotNull($attendance->check_out_time);
     }
 }
 

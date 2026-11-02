@@ -27,8 +27,13 @@ class SettingController extends Controller
             'office_latitude' => ['required', 'numeric', 'between:-90,90'],
             'office_longitude' => ['required', 'numeric', 'between:-180,180'],
             'office_radius_meters' => ['required', 'numeric', 'min:10', 'max:5000'],
-            'work_start_time' => ['required', 'string'],
-            'work_end_time' => ['required', 'string'],
+            'morning_start_time' => ['nullable', 'string'],
+            'morning_end_time' => ['nullable', 'string'],
+            'afternoon_start_time' => ['nullable', 'string'],
+            'afternoon_end_time' => ['nullable', 'string'],
+            'afternoon_end_time_friday' => ['nullable', 'string'],
+            'work_start_time' => ['nullable', 'string'],
+            'work_end_time' => ['nullable', 'string'],
         ], [
             'office_name.required' => 'Nama instansi wajib diisi.',
             'office_address.required' => 'Alamat kantor wajib diisi.',
@@ -38,15 +43,26 @@ class SettingController extends Controller
             'office_radius_meters.min' => 'Toleransi radius minimal 10 meter.',
         ]);
 
+        $morningStart = $request->input('morning_start_time') ?: ($request->input('work_start_time') ?: '07:30');
+        $morningEnd = $request->input('morning_end_time') ?: '08:00';
+        $afternoonStart = $request->input('afternoon_start_time') ?: ($request->input('work_end_time') ?: '16:00');
+        $afternoonEnd = $request->input('afternoon_end_time') ?: '17:00';
+        $afternoonEndFriday = $request->input('afternoon_end_time_friday') ?: '17:30';
+
         Setting::set('office_name', $request->office_name, 'Nama Instansi');
         Setting::set('office_address', $request->office_address, 'Alamat Kantor');
         Setting::set('office_latitude', $request->office_latitude, 'Latitude Kantor');
         Setting::set('office_longitude', $request->office_longitude, 'Longitude Kantor');
         Setting::set('office_radius_meters', $request->office_radius_meters, 'Toleransi Radius (meter)');
-        Setting::set('work_start_time', $request->work_start_time, 'Jam Mulai Kerja');
-        Setting::set('work_end_time', $request->work_end_time, 'Jam Selesai Kerja');
+        Setting::set('morning_start_time', $morningStart, 'Jam Buka Presensi Pagi');
+        Setting::set('morning_end_time', $morningEnd, 'Batas Tepat Waktu Presensi Pagi');
+        Setting::set('afternoon_start_time', $afternoonStart, 'Jam Buka Presensi Pulang');
+        Setting::set('afternoon_end_time', $afternoonEnd, 'Jam Tutup Presensi Pulang (Senin - Kamis)');
+        Setting::set('afternoon_end_time_friday', $afternoonEndFriday, 'Jam Tutup Presensi Pulang (Jumat)');
+        Setting::set('work_start_time', $morningStart, 'Jam Mulai Kerja');
+        Setting::set('work_end_time', $afternoonStart, 'Jam Selesai Kerja');
 
-        return back()->with('success', 'Pengaturan lokasi kantor BPS Karanganyar dan toleransi radius berhasil diperbarui.');
+        return back()->with('success', 'Pengaturan jadwal presensi dan lokasi kantor BPS Karanganyar berhasil diperbarui.');
     }
 
     public function updatePassword(Request $request)

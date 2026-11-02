@@ -38,16 +38,39 @@
                                class="w-full h-10 text-xs sm:text-sm px-3 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none">
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label for="work_start_time" class="block font-medium text-slate-700 uppercase tracking-wider mb-1.5">Jam Masuk</label>
-                            <input type="time" name="work_start_time" id="work_start_time" value="{{ old('work_start_time', $config['work_start_time']) }}" required
-                                   class="w-full h-10 text-xs sm:text-sm px-3 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono">
-                        </div>
-                        <div>
-                            <label for="work_end_time" class="block font-medium text-slate-700 uppercase tracking-wider mb-1.5">Jam Pulang</label>
-                            <input type="time" name="work_end_time" id="work_end_time" value="{{ old('work_end_time', $config['work_end_time']) }}" required
-                                   class="w-full h-10 text-xs sm:text-sm px-3 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono">
+                    <div class="sm:col-span-2 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <span class="block text-xs font-bold text-slate-800 mb-2">Jadwal Jam Buka / Tutup Presensi Magang:</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                            <div>
+                                <label for="morning_start_time" class="block font-medium text-slate-700 text-[11px] mb-1">Buka Pagi</label>
+                                <input type="time" name="morning_start_time" id="morning_start_time" value="{{ old('morning_start_time', $config['morning_start_time'] ?? '07:30') }}" required
+                                       class="w-full h-9 text-xs px-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono bg-white">
+                                <span class="text-[10px] text-slate-400 mt-0.5 block">Default 07:30</span>
+                            </div>
+                            <div>
+                                <label for="morning_end_time" class="block font-medium text-slate-700 text-[11px] mb-1">Batas Pagi (Tepat Waktu)</label>
+                                <input type="time" name="morning_end_time" id="morning_end_time" value="{{ old('morning_end_time', $config['morning_end_time'] ?? '08:00') }}" required
+                                       class="w-full h-9 text-xs px-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono bg-white">
+                                <span class="text-[10px] text-slate-400 mt-0.5 block">> 08:00 Terlambat</span>
+                            </div>
+                            <div>
+                                <label for="afternoon_start_time" class="block font-medium text-slate-700 text-[11px] mb-1">Buka Pulang</label>
+                                <input type="time" name="afternoon_start_time" id="afternoon_start_time" value="{{ old('afternoon_start_time', $config['afternoon_start_time'] ?? '16:00') }}" required
+                                       class="w-full h-9 text-xs px-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono bg-white">
+                                <span class="text-[10px] text-slate-400 mt-0.5 block">Default 16:00</span>
+                            </div>
+                            <div>
+                                <label for="afternoon_end_time" class="block font-medium text-slate-700 text-[11px] mb-1">Tutup Pulang (Sen-Kam)</label>
+                                <input type="time" name="afternoon_end_time" id="afternoon_end_time" value="{{ old('afternoon_end_time', $config['afternoon_end_time'] ?? '17:00') }}" required
+                                       class="w-full h-9 text-xs px-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono bg-white">
+                                <span class="text-[10px] text-slate-400 mt-0.5 block">Default 17:00</span>
+                            </div>
+                            <div>
+                                <label for="afternoon_end_time_friday" class="block font-medium text-slate-700 text-[11px] mb-1">Tutup Pulang (Jumat)</label>
+                                <input type="time" name="afternoon_end_time_friday" id="afternoon_end_time_friday" value="{{ old('afternoon_end_time_friday', $config['afternoon_end_time_friday'] ?? '17:30') }}" required
+                                       class="w-full h-9 text-xs px-2.5 rounded-lg border border-slate-300 focus:ring-1 focus:ring-blue-800 focus:border-blue-800 outline-none font-mono bg-white">
+                                <span class="text-[10px] text-slate-400 mt-0.5 block">Default 17:30</span>
+                            </div>
                         </div>
                     </div>
 

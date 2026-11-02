@@ -200,7 +200,7 @@
             </div>
 
             <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 gap-2">
-                <span>Jam Kerja BPS: <strong>{{ $officeConfig['work_start_time'] }} - {{ $officeConfig['work_end_time'] }} WIB</strong></span>
+                <span>Jam Presensi: <strong>Pagi {{ $officeConfig['morning_start_time'] ?? '07:30' }} - {{ $officeConfig['morning_end_time'] ?? '08:00' }} WIB • Pulang {{ $officeConfig['afternoon_start_time'] ?? '16:00' }} - {{ $officeConfig['today_afternoon_end_time'] ?? '17:00' }} WIB</strong></span>
                 <span class="text-emerald-700 font-medium flex items-center gap-1">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
                     <span>Verifikasi Koordinat Geospasial Aktif</span>
